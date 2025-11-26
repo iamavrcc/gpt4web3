@@ -1,0 +1,34 @@
+{
+  "name": "gpt4web3",
+  "version": "1.0.0",
+  "description": "Lightweight encryption and data processing toolkit for secure workflow automation",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "example:basic": "node examples/basic-usage.js",
+    "example:express": "node examples/express-integration.js",
+    "example:workflow": "node examples/workflow-automation.js",
+    "example:database": "node examples/database-integration.js",
+    "example:integrations": "node examples/advanced-integrations.js",
+    "example:cache": "node examples/cache-session.js",
+    "test": "echo \"Tests coming soon\" && exit 0"
+  },
+  "keywords": [
+    "encryption",
+    "aes",
+    "workflow",
+    "automation",
+    "data-processing",
+    "secure",
+    "api",
+    "integration"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "aes-js": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
