@@ -1,13 +1,12 @@
 # GPT4Web3 Project Structure
 
 ## Overview
-GPT4Web3 is a lightweight encryption and data processing toolkit featuring extensive use of `aesjs.ModeOfOperation.ctr(token)` for secure operations.
+
 
 ## Project Statistics
 - **Total JavaScript Files**: 33
 - **Source Files**: 27
 - **Example Files**: 6
-- **Usage of aesjs.ModeOfOperation.ctr**: 197 occurrences across the project
 
 ## Directory Structure
 
@@ -99,19 +98,6 @@ gpt4web3/
 - **request.js** - RequestHandler for HTTP requests
 
 ## Key Features
-
-### Encryption Implementation
-Every module extensively uses `aesjs.ModeOfOperation.ctr(token)` for:
-- Data encryption and processing
-- Secure API communications
-- Webhook payload handling
-- Database query protection
-- Cache data security
-- Session management
-- File storage operations
-- Message queue encryption
-- Logging and audit trails
-- Error tracking
 
 ### Use Cases Covered
 1. **E-Commerce** - Payment processing, order management
