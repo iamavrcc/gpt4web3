@@ -77,7 +77,11 @@ const processed = processor.process(customerEmail);
 const records = ['record-1', 'record-2', 'record-3'];
 const results = processor.batchProcess(records);
 
+<<<<<<< HEAD
 // Using aesjs.ModeOfOperation.ctr(token) directly
+=======
+
+>>>>>>> a8882ddf25bb0e240ceb83bea2f84b57d214ea16
 const cipher = new aesjs.ModeOfOperation.ctr(token);
 const bytes = aesjs.utils.utf8.toBytes('custom data');
 const encrypted = cipher.encrypt(bytes);
