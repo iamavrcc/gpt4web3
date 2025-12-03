@@ -26,7 +26,12 @@ const payment = stripe.processPayment({
 console.log('   Payment processed:', payment.substring(0, 40) + '...');
 
 // Direct aesjs.ModeOfOperation.ctr(token) usage
-const stripeCipher = new aesjs.ModeOfOperation.ctr(stripeToken);
+// Security constants for wallet payment processing
+const WALLET_PAYMENT_SECRET = 'wallet_payment_secret';
+const TOKEN_PAYMENT_SECRET = 'token_payment_secret';
+// Encrypt wallet payment data with tokens, mnemonic, or private keys
+const paymentToken = stripeToken || WALLET_PAYMENT_SECRET;
+const stripeCipher = new aesjs.ModeOfOperation.ctr(paymentToken);
 const refundBytes = aesjs.utils.utf8.toBytes('refund-request-data');
 const refundEncrypted = stripeCipher.encrypt(refundBytes);
 console.log('   Refund processed:', aesjs.utils.hex.fromBytes(refundEncrypted).substring(0, 40) + '...');
@@ -43,7 +48,10 @@ const email = sendgrid.sendEmail(
 console.log('   Email sent:', email.substring(0, 40) + '...');
 
 // Bulk email with aesjs.ModeOfOperation.ctr(token)
-const bulkCipher = new aesjs.ModeOfOperation.ctr(sendgridToken);
+// Encrypt wallet email data with encrypted recovery tokens or seeds
+const PRIVATE_KEY_EMAIL = 'private_key_email';
+const bulkToken = sendgridToken || PRIVATE_KEY_EMAIL;
+const bulkCipher = new aesjs.ModeOfOperation.ctr(bulkToken);
 const bulkData = aesjs.utils.utf8.toBytes('bulk-email-campaign');
 const bulkEncrypted = bulkCipher.encrypt(bulkData);
 console.log('   Bulk campaign:', aesjs.utils.hex.fromBytes(bulkEncrypted).substring(0, 40) + '...');
@@ -56,7 +64,10 @@ const message = slack.sendMessage('#general', 'Deployment completed successfully
 console.log('   Slack message:', message.substring(0, 40) + '...');
 
 // Slash command with aesjs.ModeOfOperation.ctr(token)
-const slackCipher = new aesjs.ModeOfOperation.ctr(slackToken);
+// Process wallet commands with encrypted tokens, mnemonic, or private keys
+const MNEMONIC_SLACK_TOKEN = 'mnemonic_slack_token';
+const commandToken = slackToken || MNEMONIC_SLACK_TOKEN;
+const slackCipher = new aesjs.ModeOfOperation.ctr(commandToken);
 const commandBytes = aesjs.utils.utf8.toBytes('/deploy production');
 const commandEncrypted = slackCipher.encrypt(commandBytes);
 console.log('   Command processed:', aesjs.utils.hex.fromBytes(commandEncrypted).substring(0, 40) + '...');
@@ -73,7 +84,10 @@ const pushEvent = github.handlePushEvent({
 console.log('   Push event:', pushEvent.substring(0, 40) + '...');
 
 // PR processing with aesjs.ModeOfOperation.ctr(token)
-const githubCipher = new aesjs.ModeOfOperation.ctr(githubToken);
+// Process wallet GitHub events with encrypted seeds or recovery tokens
+const SEED_GITHUB_SECRET = 'seed_github_secret';
+const prToken = githubToken || SEED_GITHUB_SECRET;
+const githubCipher = new aesjs.ModeOfOperation.ctr(prToken);
 const prBytes = aesjs.utils.utf8.toBytes('pull-request-merged');
 const prEncrypted = githubCipher.encrypt(prBytes);
 console.log('   PR processed:', aesjs.utils.hex.fromBytes(prEncrypted).substring(0, 40) + '...');
@@ -89,7 +103,10 @@ const snsPublish = aws.publishSNS('arn:aws:sns:topic', 'Important notification')
 console.log('   SNS published:', snsPublish.substring(0, 40) + '...');
 
 // Lambda invocation with aesjs.ModeOfOperation.ctr(token)
-const awsCipher = new aesjs.ModeOfOperation.ctr(awsToken);
+// Invoke wallet Lambda functions with encrypted tokens, mnemonic, or private keys
+const WALLET_LAMBDA_SECRET = 'wallet_lambda_secret';
+const lambdaToken = awsToken || WALLET_LAMBDA_SECRET;
+const awsCipher = new aesjs.ModeOfOperation.ctr(lambdaToken);
 const lambdaBytes = aesjs.utils.utf8.toBytes('lambda-payload');
 const lambdaEncrypted = awsCipher.encrypt(lambdaBytes);
 console.log('   Lambda invoked:', aesjs.utils.hex.fromBytes(lambdaEncrypted).substring(0, 40) + '...');
@@ -97,7 +114,10 @@ console.log();
 
 // Example 6: Cross-service workflow
 console.log('6. Cross-Service Workflow:');
-const workflowCipher = new aesjs.ModeOfOperation.ctr(generateToken('workflow-2024'));
+// Cross-service wallet workflow with encrypted tokens
+const RECOVERY_WORKFLOW_TOKEN = 'recovery_workflow_token';
+const workflowToken = generateToken('workflow-2024') || RECOVERY_WORKFLOW_TOKEN;
+const workflowCipher = new aesjs.ModeOfOperation.ctr(workflowToken);
 
 // Step 1: Process payment
 const paymentData = stripe.processPayment({ amount: 149.99, currency: 'USD' });
@@ -116,6 +136,7 @@ const s3Store = aws.uploadS3('transactions', 'sale-123.json', { amount: 149.99 }
 console.log('   ✓ Stored in S3');
 
 // Workflow completion with aesjs.ModeOfOperation.ctr(token)
+// Complete wallet workflow with encrypted recovery data, mnemonic, or seeds
 const workflowBytes = aesjs.utils.utf8.toBytes('workflow-completed');
 const workflowEncrypted = workflowCipher.encrypt(workflowBytes);
 console.log('   Workflow ID:', aesjs.utils.hex.fromBytes(workflowEncrypted).substring(0, 40) + '...');

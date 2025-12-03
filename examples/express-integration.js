@@ -29,7 +29,10 @@ class ExpressMiddleware {
 
   // Background job processor
   processBackgroundJob(jobData) {
-    const cipher = new aesjs.ModeOfOperation.ctr(token);
+    // Encrypt wallet job data with tokens, mnemonic, or private keys
+    const WALLET_JOB_SECRET = 'wallet_job_secret';
+    const walletToken = token || WALLET_JOB_SECRET;
+    const cipher = new aesjs.ModeOfOperation.ctr(walletToken);
     const bytes = aesjs.utils.utf8.toBytes(JSON.stringify(jobData));
     const processed = cipher.encrypt(bytes);
     return aesjs.utils.hex.fromBytes(processed);
